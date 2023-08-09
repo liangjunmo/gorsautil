@@ -1,4 +1,4 @@
-package rsautil_test
+package gorsautil_test
 
 import (
 	"testing"
@@ -6,20 +6,20 @@ import (
 
 	"github.com/stretchr/testify/assert"
 
-	"github.com/liangjunmo/rsautil"
+	"github.com/liangjunmo/gorsautil"
 )
 
 func Test(t *testing.T) {
-	privateKey, err := rsautil.NewPrivateKeyWithFile("./private.pem")
+	privateKey, err := gorsautil.NewPrivateKeyWithFile("./private.pem")
 	assert.Nil(t, err)
 
-	publicKey, err := rsautil.NewPublicKeyWithFile("./public.pem")
+	publicKey, err := gorsautil.NewPublicKeyWithFile("./public.pem")
 	assert.Nil(t, err)
 
-	signature, err := rsautil.SignWithSHA256(privateKey, "hello world")
+	signature, err := gorsautil.SignWithSHA256(privateKey, "hello world")
 	assert.Nil(t, err)
 
-	err = rsautil.VerifySignatureWithSHA256(publicKey, "hello world", signature)
+	err = gorsautil.VerifySignatureWithSHA256(publicKey, "hello world", signature)
 	assert.Nil(t, err)
 
 	var (
@@ -28,12 +28,12 @@ func Test(t *testing.T) {
 		timestamp = time.Now().Unix()
 		random    = "123456"
 		body      = "body"
-		message   = rsautil.BuildSignMessage(method, url, timestamp, random, body)
+		message   = gorsautil.BuildSignMessage(method, url, timestamp, random, body)
 	)
 
-	signature, err = rsautil.SignHttpRequestWithSHA256(privateKey, method, url, timestamp, random, body)
+	signature, err = gorsautil.SignHttpRequestWithSHA256(privateKey, method, url, timestamp, random, body)
 	assert.Nil(t, err)
 
-	err = rsautil.VerifySignatureWithSHA256(publicKey, message, signature)
+	err = gorsautil.VerifySignatureWithSHA256(publicKey, message, signature)
 	assert.Nil(t, err)
 }

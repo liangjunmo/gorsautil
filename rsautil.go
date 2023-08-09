@@ -1,4 +1,4 @@
-package rsautil
+package gorsautil
 
 import (
 	"crypto"

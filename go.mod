@@ -1,4 +1,4 @@
-module github.com/liangjunmo/rsautil
+module github.com/liangjunmo/gorsautil
 
 go 1.19
 
