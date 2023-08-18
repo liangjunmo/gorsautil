@@ -10,10 +10,10 @@ import (
 )
 
 func Test(t *testing.T) {
-	privateKey, err := gorsautil.NewPrivateKeyWithFile("./private.pem")
+	privateKey, err := gorsautil.NewPrivateKeyWithFile("./testdata/private.pem")
 	assert.Nil(t, err)
 
-	publicKey, err := gorsautil.NewPublicKeyWithFile("./public.pem")
+	publicKey, err := gorsautil.NewPublicKeyWithFile("./testdata/public.pem")
 	assert.Nil(t, err)
 
 	signature, err := gorsautil.SignWithSHA256(privateKey, "hello world")
