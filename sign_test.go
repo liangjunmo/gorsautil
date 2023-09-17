@@ -9,7 +9,7 @@ import (
 	"github.com/liangjunmo/gorsautil"
 )
 
-func Test(t *testing.T) {
+func TestSign(t *testing.T) {
 	privateKey, err := gorsautil.NewPrivateKeyWithFile("./testdata/private.pem")
 	assert.Nil(t, err)
 
@@ -31,7 +31,7 @@ func Test(t *testing.T) {
 		message   = gorsautil.BuildSignMessage(method, url, timestamp, random, body)
 	)
 
-	signature, err = gorsautil.SignHttpRequestWithSHA256(privateKey, method, url, timestamp, random, body)
+	signature, err = gorsautil.SignHTTPRequestWithSHA256(privateKey, method, url, timestamp, random, body)
 	assert.Nil(t, err)
 
 	err = gorsautil.VerifySignatureWithSHA256(publicKey, message, signature)
