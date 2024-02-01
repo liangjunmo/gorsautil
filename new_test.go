@@ -1,17 +1,15 @@
-package gorsautil_test
+package gorsautil
 
 import (
 	"testing"
 
-	"github.com/stretchr/testify/assert"
-
-	"github.com/liangjunmo/gorsautil"
+	"github.com/stretchr/testify/require"
 )
 
 func TestNew(t *testing.T) {
-	_, err := gorsautil.NewPrivateKeyWithFile("./testdata/private.pem")
-	assert.Nil(t, err)
+	_, err := NewPrivateKeyWithFile("./testdata/private.pem")
+	require.Nil(t, err)
 
-	_, err = gorsautil.NewPublicKeyWithFile("./testdata/public.pem")
-	assert.Nil(t, err)
+	_, err = NewPublicKeyWithFile("./testdata/public.pem")
+	require.Nil(t, err)
 }

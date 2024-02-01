@@ -1,39 +1,21 @@
-package gorsautil_test
+package gorsautil
 
 import (
 	"testing"
-	"time"
 
-	"github.com/stretchr/testify/assert"
-
-	"github.com/liangjunmo/gorsautil"
+	"github.com/stretchr/testify/require"
 )
 
 func TestSign(t *testing.T) {
-	privateKey, err := gorsautil.NewPrivateKeyWithFile("./testdata/private.pem")
-	assert.Nil(t, err)
+	privateKey, err := NewPrivateKeyWithFile("./testdata/private.pem")
+	require.Nil(t, err)
 
-	publicKey, err := gorsautil.NewPublicKeyWithFile("./testdata/public.pem")
-	assert.Nil(t, err)
+	publicKey, err := NewPublicKeyWithFile("./testdata/public.pem")
+	require.Nil(t, err)
 
-	signature, err := gorsautil.SignWithSHA256(privateKey, "hello world")
-	assert.Nil(t, err)
+	signature, err := SignWithSHA256(privateKey, "message")
+	require.Nil(t, err)
 
-	err = gorsautil.VerifySignatureWithSHA256(publicKey, "hello world", signature)
-	assert.Nil(t, err)
-
-	var (
-		method    = "POST"
-		url       = "url"
-		timestamp = time.Now().Unix()
-		random    = "123456"
-		body      = "body"
-		message   = gorsautil.BuildSignMessage(method, url, timestamp, random, body)
-	)
-
-	signature, err = gorsautil.SignHTTPRequestWithSHA256(privateKey, method, url, timestamp, random, body)
-	assert.Nil(t, err)
-
-	err = gorsautil.VerifySignatureWithSHA256(publicKey, message, signature)
-	assert.Nil(t, err)
+	err = VerifySignatureWithSHA256(publicKey, signature, "message")
+	require.Nil(t, err)
 }
